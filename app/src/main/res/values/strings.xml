@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Inventaris</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="btnSubmit">Submit</string>
+</resources>
