@@ -10,6 +10,11 @@ public class CategoriesModel implements Serializable {
         this.category = category;
     }
 
+    public CategoriesModel(String idCategory, String category) {
+        this.idcategory = idcategory;
+        this.category = category;
+    }
+
     public String getIdcategory() {
         return idcategory;
     }

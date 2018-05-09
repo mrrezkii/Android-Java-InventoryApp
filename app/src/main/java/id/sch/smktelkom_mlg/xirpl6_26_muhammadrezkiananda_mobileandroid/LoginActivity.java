@@ -73,8 +73,8 @@ public class LoginActivity extends AppCompatActivity {
                                     obj.getString("Branch")
                             );
                             SessionPreference.getInstance(getApplicationContext()).userLogin(userModel);
-                            Toast.makeText(getApplicationContext(), "Berhasil login", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            finish();
                         }
                     }
                 } catch (JSONException e) {

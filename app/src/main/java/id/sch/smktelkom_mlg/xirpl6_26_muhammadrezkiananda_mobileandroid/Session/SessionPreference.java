@@ -8,13 +8,13 @@ import id.sch.smktelkom_mlg.xirpl6_26_muhammadrezkiananda_mobileandroid.LoginAct
 import id.sch.smktelkom_mlg.xirpl6_26_muhammadrezkiananda_mobileandroid.Model.UserModel;
 
 public class SessionPreference {
-    private static final String SHARED_PREF_NAME = "sessionsharedpref";
+    private static final String SHARED_PREFERENCES_NAME = "sessionsharedpref";
+    private static final String KEY_ID = "keyid";
     private static final String KEY_NAMA = "keynama";
     private static final String KEY_USERNAME = "keyusername";
-    private static final String KEY_PASSWORD = "keypassword";
-    private static final String KEY_ID = "keyid";
+    private static final String KEY_PASSWORD = "keypass";
     private static final String KEY_BRANCH = "keybranch";
-
+    private static final String KEY_LOAD = "keyload";
     private static SessionPreference sessionPreference = null;
     private static Context context;
 
@@ -30,10 +30,10 @@ public class SessionPreference {
     }
 
     public void userLogin(UserModel user) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(KEY_ID, user.getId());
-        editor.putString(KEY_NAMA, user.getNama());
+        editor.putString(KEY_NAMA, user.getName());
         editor.putString(KEY_USERNAME, user.getUsername());
         editor.putString(KEY_PASSWORD, user.getPassword());
         editor.putString(KEY_BRANCH, user.getBranch());
@@ -41,12 +41,12 @@ public class SessionPreference {
     }
 
     public boolean isLoggedIn() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(KEY_USERNAME, null) != null;
     }
 
     public UserModel getUser() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         return new UserModel(
                 sharedPreferences.getInt(KEY_ID, -1),
                 sharedPreferences.getString(KEY_NAMA, null),
@@ -57,10 +57,23 @@ public class SessionPreference {
     }
 
     public void logout() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.apply();
         context.startActivity(new Intent(context, LoginActivity.class));
+
+    }
+
+    public void Load(String load) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_LOAD, load);
+        editor.apply();
+    }
+
+    public boolean isLoaded() {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(KEY_LOAD, null) != null;
     }
 }
